@@ -191,6 +191,7 @@ const getJSON = async (url, options) => {
   return success;
 };
 
+/*
 export const oauthToken = async ({ baseUrl, ...options }: OAuthTokenOptions) =>
   await getJSON(`${baseUrl}/oauth/token`, {
     method: 'POST',
@@ -201,6 +202,21 @@ export const oauthToken = async ({ baseUrl, ...options }: OAuthTokenOptions) =>
     }),
     headers: {
       'Content-type': 'application/json'
+    }
+  });
+*/
+
+
+export const oauthToken = async ({ baseUrl, ...options }: OAuthTokenOptions) =>
+  await getJSON(`${baseUrl}/as/token.oauth2`, {
+    method: 'POST',
+    body: Object.keys({
+      grant_type: 'authorization_code',
+      redirect_uri: window.location.origin,
+      ...options
+    }).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(details[key])).join('&'),
+    headers: {
+      'Content-type': 'application/x-www-form-urlencoded'
     }
   });
 
