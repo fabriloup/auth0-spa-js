@@ -217,10 +217,9 @@ export const oauthToken = async ({
   };
   return await getJSON(`${baseUrl}/as/token.oauth2`, {
     method: 'POST',
-    body: Object.keys({ details })
+    body: Object.keys(details)
       .map(
-        key =>
-          encodeURIComponent(key) + '=' + encodeURIComponent({ details }[key])
+        key => encodeURIComponent(key) + '=' + encodeURIComponent(details[key])
       )
       .join('&'),
     headers: {

@@ -279,7 +279,8 @@ describe('utils', () => {
       expect(mockUnfetch).toHaveBeenCalledWith(
         'https://test.com/as/token.oauth2',
         {
-          body: 'details=%5Bobject%20Object%5D',
+          body:
+            'grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost&client_id=client_idIn&code=codeIn&code_verifier=code_verifierIn',
           headers: { 'Content-type': 'application/x-www-form-urlencoded' },
           method: 'POST'
         }
