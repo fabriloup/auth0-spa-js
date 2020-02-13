@@ -206,19 +206,28 @@ export const oauthToken = async ({ baseUrl, ...options }: OAuthTokenOptions) =>
   });
 */
 
-
-export const oauthToken = async ({ baseUrl, ...options }: OAuthTokenOptions) =>
-  await getJSON(`${baseUrl}/as/token.oauth2`, {
+export const oauthToken = async ({
+  baseUrl,
+  ...options
+}: OAuthTokenOptions) => {
+  let details = {
+    grant_type: 'authorization_code',
+    redirect_uri: window.location.origin,
+    ...options
+  };
+  return await getJSON(`${baseUrl}/as/token.oauth2`, {
     method: 'POST',
-    body: Object.keys({
-      grant_type: 'authorization_code',
-      redirect_uri: window.location.origin,
-      ...options
-    }).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(details[key])).join('&'),
+    body: Object.keys({ details })
+      .map(
+        key =>
+          encodeURIComponent(key) + '=' + encodeURIComponent({ details }[key])
+      )
+      .join('&'),
     headers: {
       'Content-type': 'application/x-www-form-urlencoded'
     }
   });
+};
 
 export const getCrypto = () => {
   //ie 11.x uses msCrypto

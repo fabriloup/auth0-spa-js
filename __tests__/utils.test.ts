@@ -254,6 +254,7 @@ describe('utils', () => {
       expect(openPopup).toThrowError('Could not open popup');
     });
   });
+
   describe('oauthToken', () => {
     let oauthToken;
     let mockUnfetch;
@@ -275,12 +276,14 @@ describe('utils', () => {
         code: 'codeIn',
         code_verifier: 'code_verifierIn'
       });
-      expect(mockUnfetch).toHaveBeenCalledWith('https://test.com/oauth/token', {
-        body:
-          '{"grant_type":"authorization_code","redirect_uri":"http://localhost","client_id":"client_idIn","code":"codeIn","code_verifier":"code_verifierIn"}',
-        headers: { 'Content-type': 'application/json' },
-        method: 'POST'
-      });
+      expect(mockUnfetch).toHaveBeenCalledWith(
+        'https://test.com/as/token.oauth2',
+        {
+          body: 'details=%5Bobject%20Object%5D',
+          headers: { 'Content-type': 'application/x-www-form-urlencoded' },
+          method: 'POST'
+        }
+      );
     });
     it('handles error with error response', async () => {
       const theError = {
@@ -326,11 +329,11 @@ describe('utils', () => {
         });
       } catch (error) {
         expect(error.message).toBe(
-          `HTTP error. Unable to fetch https://test.com/oauth/token`
+          `HTTP error. Unable to fetch https://test.com/as/token.oauth2`
         );
         expect(error.error).toBe('request_error');
         expect(error.error_description).toBe(
-          `HTTP error. Unable to fetch https://test.com/oauth/token`
+          `HTTP error. Unable to fetch https://test.com/as/token.oauth2`
         );
       }
     });

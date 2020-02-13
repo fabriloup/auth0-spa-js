@@ -221,7 +221,7 @@ describe('Auth0', () => {
       await auth0.loginWithPopup();
       expect(utils.runPopup).toHaveBeenCalledWith(
         popup,
-        `https://test.auth0.com/authorize?${TEST_QUERY_PARAMS}${TEST_TELEMETRY_QUERY_STRING}`,
+        `https://test.auth0.com/as/authorization.oauth2?${TEST_QUERY_PARAMS}${TEST_TELEMETRY_QUERY_STRING}`,
         DEFAULT_POPUP_CONFIG_OPTIONS
       );
     });
@@ -232,7 +232,7 @@ describe('Auth0', () => {
       await auth0.loginWithPopup({}, { timeoutInSeconds: 1 });
       expect(utils.runPopup).toHaveBeenCalledWith(
         popup,
-        `https://test.auth0.com/authorize?${TEST_QUERY_PARAMS}${TEST_TELEMETRY_QUERY_STRING}`,
+        `https://test.auth0.com/as/authorization.oauth2?${TEST_QUERY_PARAMS}${TEST_TELEMETRY_QUERY_STRING}`,
         { timeoutInSeconds: 1 }
       );
     });
@@ -244,7 +244,7 @@ describe('Auth0', () => {
       await auth0.loginWithPopup({}, DEFAULT_POPUP_CONFIG_OPTIONS);
       expect(utils.runPopup).toHaveBeenCalledWith(
         popup,
-        `https://test.auth0.com/authorize?${TEST_QUERY_PARAMS}${TEST_TELEMETRY_QUERY_STRING}`,
+        `https://test.auth0.com/as/authorization.oauth2?${TEST_QUERY_PARAMS}${TEST_TELEMETRY_QUERY_STRING}`,
         { timeoutInSeconds: 1 }
       );
     });
@@ -570,7 +570,7 @@ describe('Auth0', () => {
         ...REDIRECT_OPTIONS
       });
       expect(url).toBe(
-        `https://test.auth0.com/authorize?query=params${TEST_TELEMETRY_QUERY_STRING}`
+        `https://test.auth0.com/as/authorization.oauth2?query=params${TEST_TELEMETRY_QUERY_STRING}`
       );
     });
     it('returns the url when no arguments are passed', async () => {
@@ -578,7 +578,7 @@ describe('Auth0', () => {
 
       const url = await auth0.buildAuthorizeUrl();
       expect(url).toBe(
-        `https://test.auth0.com/authorize?query=params${TEST_TELEMETRY_QUERY_STRING}`
+        `https://test.auth0.com/as/authorization.oauth2?query=params${TEST_TELEMETRY_QUERY_STRING}`
       );
     });
   });
@@ -593,7 +593,7 @@ describe('Auth0', () => {
 
       await auth0.loginWithRedirect(REDIRECT_OPTIONS);
       expect(window.location.assign).toHaveBeenCalledWith(
-        `https://test.auth0.com/authorize?query=params${TEST_TELEMETRY_QUERY_STRING}`
+        `https://test.auth0.com/as/authorization.oauth2?query=params${TEST_TELEMETRY_QUERY_STRING}`
       );
     });
     it('calls `window.location.assign` with the correct url and fragment if provided', async () => {
@@ -604,7 +604,7 @@ describe('Auth0', () => {
         fragment: '/reset'
       });
       expect(window.location.assign).toHaveBeenCalledWith(
-        `https://test.auth0.com/authorize?query=params${TEST_TELEMETRY_QUERY_STRING}#/reset`
+        `https://test.auth0.com/as/authorization.oauth2?query=params${TEST_TELEMETRY_QUERY_STRING}#/reset`
       );
     });
     it('can be called with no arguments', async () => {
@@ -613,7 +613,7 @@ describe('Auth0', () => {
       await auth0.loginWithRedirect();
 
       expect(window.location.assign).toHaveBeenCalledWith(
-        `https://test.auth0.com/authorize?query=params${TEST_TELEMETRY_QUERY_STRING}`
+        `https://test.auth0.com/as/authorization.oauth2?query=params${TEST_TELEMETRY_QUERY_STRING}`
       );
     });
   });
@@ -1310,7 +1310,7 @@ describe('Auth0', () => {
         const { auth0, utils } = await setup();
         await auth0.getTokenSilently(defaultOptionsIgnoreCacheTrue);
         expect(utils.runIframe).toHaveBeenCalledWith(
-          `https://test.auth0.com/authorize?${TEST_QUERY_PARAMS}${TEST_TELEMETRY_QUERY_STRING}`,
+          `https://test.auth0.com/as/authorization.oauth2?${TEST_QUERY_PARAMS}${TEST_TELEMETRY_QUERY_STRING}`,
           'https://test.auth0.com',
           defaultOptionsIgnoreCacheTrue.timeoutInSeconds
         );
@@ -1320,7 +1320,7 @@ describe('Auth0', () => {
         const { auth0, utils } = await setup({ authorizeTimeoutInSeconds: 1 });
         await auth0.getTokenSilently(defaultOptionsIgnoreCacheTrue);
         expect(utils.runIframe).toHaveBeenCalledWith(
-          `https://test.auth0.com/authorize?${TEST_QUERY_PARAMS}${TEST_TELEMETRY_QUERY_STRING}`,
+          `https://test.auth0.com/as/authorization.oauth2?${TEST_QUERY_PARAMS}${TEST_TELEMETRY_QUERY_STRING}`,
           'https://test.auth0.com',
           1
         );
@@ -1333,7 +1333,7 @@ describe('Auth0', () => {
           timeoutInSeconds: 1
         });
         expect(utils.runIframe).toHaveBeenCalledWith(
-          `https://test.auth0.com/authorize?${TEST_QUERY_PARAMS}${TEST_TELEMETRY_QUERY_STRING}`,
+          `https://test.auth0.com/as/authorization.oauth2?${TEST_QUERY_PARAMS}${TEST_TELEMETRY_QUERY_STRING}`,
           'https://test.auth0.com',
           1
         );
