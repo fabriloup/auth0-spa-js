@@ -40,8 +40,8 @@ export default class Auth0Client {
     this.transactionManager = new TransactionManager();
     this.domainUrl = `https://${this.options.domain}`;
     this.tokenIssuer = this.options.issuer
-      ? `https://${this.options.issuer}/`
-      : `${this.domainUrl}/`;
+      ? `https://${this.options.issuer}`
+      : `${this.domainUrl}`;
   }
   private _url(path) {
     const telemetry = encodeURIComponent(
@@ -80,7 +80,9 @@ export default class Auth0Client {
     };
   }
   private _authorizeUrl(authorizeOptions: AuthorizeOptions) {
-  return this._url(`/as/authorization.oauth2?${createQueryParams(authorizeOptions)}`);
+    return this._url(
+      `/as/authorization.oauth2?${createQueryParams(authorizeOptions)}`
+    );
   }
   private _verifyIdToken(id_token: string, nonce?: string) {
     return verifyIdToken({
