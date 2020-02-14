@@ -178,7 +178,7 @@ export default class Auth0Client {
     );
     const url = this._authorizeUrl({
       ...params,
-      response_mode: 'web_message'
+      response_mode: 'query'
     });
     const codeResult = await runPopup(popup, url, {
       ...config,
@@ -393,7 +393,7 @@ export default class Auth0Client {
       const url = this._authorizeUrl({
         ...params,
         prompt: 'none',
-        response_mode: 'web_message'
+        response_mode: 'query'
       });
 
       const codeResult = await runIframe(
